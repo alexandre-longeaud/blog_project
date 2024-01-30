@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\Article;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
@@ -31,10 +32,12 @@ class ArticleCrudController extends AbstractCrudController
 
             yield TextField::new('featuredText');
 
+            yield AssociationField::new('categories');
+
             yield DateTimeField::new('createdAt')->hideOnForm();
 
             yield DateTimeField::new('updatedAt')->hideOnForm();
-        
+
     }
     
 }
