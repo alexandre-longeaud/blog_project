@@ -10,9 +10,9 @@
 {% block importmap %}{{ importmap('app') }}{% endblock %}
         {% endblock %}
     </head>
- 
-    <body>
 
+    <body>
+ {% if is_granted('ROLE_AUTHOR') %}
     <nav class="py-2 bg-dark border-bottom">
 
         <div class="container d-flex flex-wrap">
@@ -25,7 +25,9 @@
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButtonAdmin">
                         <li><a class="dropdown-item" href="{{ path('admin') }}">Tableau de bord</a></li>
+                        {% if is_granted('ROLE_ADMIN') %}
                         <li><a class="dropdown-item" href="#">Menus</a></li>
+                        {% endif %}
                     </ul>
 
                 </div>
@@ -47,6 +49,7 @@
         </div>
 
     </nav>
+     {% endif %}
 
     <div class="container">
         <header class="d-flex flex-wrap justify-content py-3 mb-4 border-bottom">
@@ -73,7 +76,7 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li>
-                                <a class="dropdown-item" href="#">Mon profil</a>
+                                <a class="dropdown-item" href="{{ path('app_profile', {username : app.user.username }) }}">Mon profil</a>
                             </li>
                               <li>
                                 <a class="dropdown-item" href="{{ path('app_logout') }}">Déconnexion</a>

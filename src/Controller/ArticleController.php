@@ -27,7 +27,7 @@ class ArticleController extends AbstractController
             return $this->redirectToRoute('app_home');
         }
 
-
+        $user = $this->getUser();
         //Le constructeur dans l'entité article permet d'associé un commentaire à un article, soit en paramètre de cette instance de Comment
         $comment = new Comment();
         
@@ -39,7 +39,7 @@ class ArticleController extends AbstractController
         if ($commentForm->isSubmitted() && $commentForm->isValid()) {
 
             $comment->setArticle($article);
-            $comment->setUser($userRepo->findOneBy(['id'=>1]));
+            $comment->setUser($user);
             $comment->setCreatedAt(new \DateTime());
 
             $em->persist($comment);

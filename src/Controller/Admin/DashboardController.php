@@ -6,6 +6,7 @@ use App\Entity\Article;
 use App\Entity\Category;
 use App\Entity\Comment;
 use App\Entity\Menu;
+use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
@@ -43,11 +44,16 @@ class DashboardController extends AbstractDashboardController
     {
         yield MenuItem::linkToRoute('Allez sur le site', 'fa fa-undo','app_home');
 
+        if($this->isGranted('ROLE_AUTHOR')){
         yield MenuItem::subMenu('Articles', 'fas fa-newspaper')->setSubItems([
                 MenuItem::linkToCrud('Tous les articles','fas fa-newspaper', Article::class),
                 MenuItem::linkToCrud('Ajouter','fas fa-plus', Article::class)->setAction(Crud::PAGE_NEW),
                 MenuItem::linkToCrud('catégories','fas fa-list', Category::class)
-        ]);
+
+            ]);
+        }  
+
+        if($this->isGranted('ROLE_ADMIN')){
 
         yield MenuItem::subMenu('Menus', 'fas fa-list')->setSubItems([
             MenuItem::linkToCrud('Pages','fas fa-file', Menu::class)->setQueryParameter('submenuIndex',0),
@@ -55,8 +61,20 @@ class DashboardController extends AbstractDashboardController
             MenuItem::linkToCrud('Liens personnalisés','fas fa-link', Menu::class)->setQueryParameter('submenuIndex',2),
             MenuItem::linkToCrud('Catgégories','fab fa-delicious', Menu::class)->setQueryParameter('submenuIndex',3),
 
-        ]);
+            ]);
 
-        yield MenuItem::linkToCrud('Commentaires','fas fa-comment', Comment::class);
+        }
+
+        if($this->isGranted('ROLE_ADMIN')){
+
+            yield MenuItem::linkToCrud('Commentaires','fas fa-comment', Comment::class);
+
+            yield MenuItem::subMenu('Comptes', 'fas fa-user')->setSubItems([
+                MenuItem::linkToCrud('Tous les comptes','fas fa-user-friends', User::class),
+                MenuItem::linkToCrud('Ajouter','fas fa-plus', User::class)->setAction(Crud::PAGE_NEW),
+            ]);
+       
+        }
+      
     }
 }
