@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\MediaRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Attribute\Groups;
 
 #[ORM\Entity(repositoryClass: MediaRepository::class)]
 class Media
@@ -11,6 +12,7 @@ class Media
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['remove'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
@@ -61,5 +63,10 @@ class Media
         $this->filename = $filename;
 
         return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->name;
     }
 }
