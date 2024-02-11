@@ -7,6 +7,7 @@ use App\Entity\Comment;
 use App\Entity\User;
 use App\Form\AddCommentType;
 use App\Repository\UserRepository;
+use App\Service\CommentService;
 use DateTime;
 use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
@@ -18,7 +19,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class ArticleController extends AbstractController
 {
     #[Route('/article/{slug}', name: 'article_show')]
-    public function show(?Article $article, UserRepository $userRepo, Request $request, EntityManagerInterface $em): Response
+    public function show(?Article $article, UserRepository $userRepo, Request $request, EntityManagerInterface $em, CommentService $commentService): Response
     {
         
         // Condition : si $article n'existe pas, on redirige vers la page d'accueil
@@ -52,7 +53,8 @@ class ArticleController extends AbstractController
 
         return $this->render('article/show.html.twig', [
             'article' => $article,
-            'form'=> $commentForm
+            'form'=> $commentForm,
+            'comments' => $commentService->getPaginatedComments($article)
         ]);
     }
 }
