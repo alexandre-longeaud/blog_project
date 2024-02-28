@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <title>Blog- {% block title %}Bienvenue{% endblock %}</title>
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
+        <link rel="stylesheet" href="{{ asset('styles/app.css') }}">
+
+        {% block javascripts %}
+{% block importmap %}{{ importmap('app') }}{% endblock %}
+        {% endblock %}
+    </head>
+
+    <body>
+
+    <div class="container mt-5">
+            <div class="row">
+                <div class="col">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Bienvenue</h5>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed interdum mi ligula, sit amet accumsan felis tincidunt at. Etiam diam neque, mollis vel ex nec, lacinia dapibus mi. Maecenas nec nisi arcu. Nulla facilisi. Proin pulvinar dolor id metus dignissim porttitor. Proin feugiat quis massa pellentesque facilisis. Nam eros lectus, scelerisque id vestibulum ultricies, convallis in sem. Morbi in congue orci. Proin tristique eros sit amet mauris fringilla convallis.</p>
+                            <hr>
+                            <h5 class="card-title">Informations nécessaires</h5>
+                            <hr>
+
+                            {{ form(form) }}
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+    </body>
